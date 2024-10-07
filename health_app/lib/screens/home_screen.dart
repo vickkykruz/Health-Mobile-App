@@ -3,6 +3,10 @@ import 'signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'dart:math';
+import 'ai_consultant_screen.dart';
+import 'home_screen.dart';
+import 'plan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +19,26 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _controller = TextEditingController();
   bool _hasTyped = false;
+
+  int _selectedIndex = 0;
+
+  // List of pages corresponding to each BottomNavigationBar item
+  final List<Widget> _pages = [
+    HomeScreen(),     // Index 0 - Home
+    PlanScreen(),     // Index 1 - Plans
+    // ScanScreen(),     // Index 2 - Scan
+    // HistoryScreen(),  // Index 3 - History
+    // AccountScreen(),  // Index 4 - Account
+  ];
+
+  // This function will update the selectedIndex
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+}
 
   @override
   void initState() {
@@ -35,13 +59,30 @@ class _HomeScreenState extends State<HomeScreen> {
         // elevation: 0,
         // title: Text('Health Dashboard', style: TextStyle(color: Colors.white)),
         actions: [
-          IconButton(
-            icon: Icon(Icons.mail, color: Colors.white),
-            onPressed: () {},
+          Container(
+            padding: const EdgeInsets.all(2),  // Adds 5px padding around the IconButton
+            decoration: BoxDecoration(
+              color: Colors.transparent,       // Background color, if needed
+              borderRadius: BorderRadius.circular(50),  // Circular border
+              border: Border.all(color: Color(0xFFf3f3f3), width: 1),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.mail, size: 20.0, color: Colors.white),
+              onPressed: () {},
+            ),
           ),
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
+          const SizedBox(width: 5),
+          Container(
+            padding: const EdgeInsets.all(2),  // Adds 5px padding around the IconButton
+            decoration: BoxDecoration(
+              color: Colors.transparent,       // Background color, if needed
+              borderRadius: BorderRadius.circular(50),  // Circular border
+              border: Border.all(color: Color(0xFFf3f3f3), width: 1),  // Border color and width
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.notifications, size: 20.0,  color: Colors.white),
+              onPressed: () {},
+            ),
           ),
         ],
       ),
@@ -152,6 +193,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           // Handle sending the message
                                         } else {
                                           // Handle microphone input
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => AiConsultationScreen()),
+                                          );
                                         }
                                       },
                                       icon: Icon(
@@ -218,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            // const SizedBox(height: 10),
                            Row(
                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: const [
+                             children: [
                                Text(
                                  '+1523 Eaten',
                                   style: TextStyle(
@@ -227,6 +272,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                ),
+
+                               
+                               // Add the chart or progress bar
+                               Container(
+                                 width: 150,
+                                 height: 100,
+                                 child: CustomPaint(
+                                   painter: GaugePainter(percentage: 50),
+                                   child: Center(
+                                     child: Column(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                       children: [
+                                         Text(
+                                           '1354',
+                                           style: TextStyle(
+                                             fontSize: 24,
+                                             fontWeight: FontWeight.bold,
+                                             color: Colors.black,
+                                           ),
+                                         ),
+                                         Text(
+                                           'Calories left',
+                                           style: TextStyle(
+                                             fontSize: 14,
+                                             color: Colors.black54,
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                               ),
+
                                Text(
                                  '-7534 Burned',
                                  style: TextStyle(
@@ -237,7 +315,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                ),
                              ],
                            ),
-                           // Add any chart or progress bar if needed
 
                          ],
                        ),
@@ -367,40 +444,365 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Row(
 
-                              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
-                                const SizedBox(width: 10),
-                                Column(
+                                // Group 1
+                                Row(
                                   children: [
-                                    const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
-                                    const SizedBox(height: 20),
-                                    Row(
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
                                       children: [
-                                        FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
-                                        const SizedBox(width: 10),
-                                        const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
-                                        const SizedBox(width: 30),
-                                        FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
-                                        const SizedBox(width: 10),
-                                        const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
-                                FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
+                            
                           ],
                         ),
                         
                       ),
                     ),
+
+                   Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      child: Padding(
+                  
+                        padding: const EdgeInsets.all(0),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Group 1
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+
+                    Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      child: Padding(
+                  
+                        padding: const EdgeInsets.all(0),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Group 1
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+
+                   Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      child: Padding(
+                  
+                        padding: const EdgeInsets.all(0),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Group 1
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+
+                   Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      child: Padding(
+                  
+                        padding: const EdgeInsets.all(0),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Group 1
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+
+                   Card(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 5,
+                      child: Padding(
+                  
+                        padding: const EdgeInsets.all(0),
+                        child: Column(
+                          //crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Group 1
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/meal1.jpeg', width: 113, height: 100),
+                                    const SizedBox(width: 10),
+                                    Column(
+                                      children: [
+                                        const Text('Gilly Chicken', style: TextStyle(fontSize: 18, color: Colors.black54, fontWeight: FontWeight.bold)),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          children: [
+                                            FaIcon(FontAwesomeIcons.fire, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('-2563 cal', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                            const SizedBox(width: 30),
+                                            FaIcon(FontAwesomeIcons.bell, size: 20.0, color: Colors.black54),
+                                            const SizedBox(width: 10),
+                                            const Text('200g', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black54)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                // Group 2
+                                Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),  // Padding of 20px
+                                    child: FaIcon(
+                                      FontAwesomeIcons.fire, 
+                                      size: 20.0, 
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ),
+                    ),
+    
                  ],
                ),
              ),
-             const SizedBox(height: 50)
+             const SizedBox(height: 0)
 
              
 
@@ -416,12 +818,65 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
         ],
+        currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        onTap: _onItemTapped,
       ),
     ); // Scaffold
 
 
+  }
+}
+
+
+class GaugePainter extends CustomPainter {
+  final double percentage;
+  GaugePainter({required this.percentage});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    double strokeWidth = 10;
+    double radius = (size.width / 2) - strokeWidth;
+
+    Offset center = Offset(size.width / 2, size.height / 2);
+
+    // Background arc (light grey)
+    Paint backgroundPaint = Paint()
+      ..color = Colors.grey.shade300
+      ..strokeWidth = strokeWidth
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Start at the leftmost point of the semi-circle
+      pi, // Draw a half-circle (pi radians)
+      false,
+      backgroundPaint,
+    );
+
+    // Foreground arc (active part)
+    Paint foregroundPaint = Paint()
+      ..color = Colors.blue
+      ..strokeWidth = strokeWidth
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+
+    double sweepAngle = (pi * percentage) / 100; // How much of the arc to fill
+
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Start at the leftmost point
+      sweepAngle, // Draw the active arc (dynamic based on percentage)
+      false,
+      foregroundPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true; // Redraw whenever needed
   }
 }
