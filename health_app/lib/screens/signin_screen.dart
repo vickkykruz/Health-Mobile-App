@@ -27,7 +27,7 @@ class SignInScreen extends StatelessWidget {
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.stretch,
                children: [
-	         const SizedBox(height: 20),
+	         const SizedBox(height: 10),
                  const Text(
                    'Welcome!',
                     style: TextStyle(
@@ -47,7 +47,7 @@ class SignInScreen extends StatelessWidget {
                    ),
                    // textAlign: TextAlign.center,
                  ),
-                 const SizedBox(height: 100),
+                 const SizedBox(height: 30),
                  // Email TextField
                  TextField(
                    decoration: InputDecoration(
@@ -62,7 +62,7 @@ class SignInScreen extends StatelessWidget {
                    ),
                  ),
 
-                 const SizedBox(height: 25),
+                 const SizedBox(height: 15),
                  // Password TextField
                  TextField(
                    decoration: InputDecoration(
@@ -77,7 +77,7 @@ class SignInScreen extends StatelessWidget {
                    ),
                    obscureText: true, // To hide password
                  ),
-	         const SizedBox(height: 20),
+	         const SizedBox(height: 10),
                  // Login Button
                  ElevatedButton(
                    onPressed: () {

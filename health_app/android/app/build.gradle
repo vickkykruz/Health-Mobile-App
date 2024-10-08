@@ -11,8 +11,10 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace = "com.example.health_app"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Use hardcoded values for the SDK and other configurations
+    compileSdk = 34  // Update to the version you want
+
+    ndkVersion = "21.4.7075529"  // Example NDK version, adjust as needed
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -28,24 +30,21 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.health_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
+        minSdkVersion = 21  // Example value; adjust to your needs
+        targetSdkVersion = 34  // Align with compileSdk
+        versionCode = 1
+        versionName = "1.0"
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
     }
 }
+
+apply from: "/home/victor/flutter/packages/flutter_tools/gradle/flutter.gradle"
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

@@ -28,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.stretch,
                children: [
-	         const SizedBox(height: 20),
+	         const SizedBox(height: 10),
                  const Text(
                    'Hi!',
                     style: TextStyle(
@@ -48,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
                    ),
                    // textAlign: TextAlign.center,
                  ),
-                 const SizedBox(height: 60),
+                 const SizedBox(height: 30),
                  TextField(
                    decoration: InputDecoration(
                      labelText: 'Enter full name',
@@ -61,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
                      ),
                    ),
                  ),
-                 const SizedBox(height: 25),
+                 const SizedBox(height: 15),
                  // Email TextField
                  TextField(
                    decoration: InputDecoration(
@@ -76,7 +76,7 @@ class SignUpScreen extends StatelessWidget {
                    ),
                  ),
 
-                 const SizedBox(height: 25),
+                 const SizedBox(height: 15),
                  // Password TextField
                  TextField(
                    decoration: InputDecoration(
@@ -91,7 +91,7 @@ class SignUpScreen extends StatelessWidget {
                    ),
                    obscureText: true, // To hide password
                  ),
-	         const SizedBox(height: 20),
+	         const SizedBox(height: 10),
                  // Login Button
                  ElevatedButton(
                    onPressed: () {
@@ -112,7 +112,7 @@ class SignUpScreen extends StatelessWidget {
                        color: Colors.white)),
                   ),
  
-		  const SizedBox(height: 20),
+		  const SizedBox(height: 10),
                   // Divider with "or"
                   Row(
                     children: const [
@@ -125,7 +125,7 @@ class SignUpScreen extends StatelessWidget {
                     ],
                   ),
                   
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   // Social Media Icons
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
